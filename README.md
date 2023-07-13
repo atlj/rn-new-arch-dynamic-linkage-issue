@@ -1,79 +1,50 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Issue with building new architecture app on iOS when `use_frameworks` is set to `dynamic` linkage
 
-# Getting Started
+This is a repository to reproduce an error caused by calling `use_frameworks` with `dynamic` linkage on the new React Native architecture.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+The build fails due to:
+```
+Undefined symbol: facebook::react::ImageManager::requestImage(facebook::react::ImageSource const&, int) const
+```
+<details>
+  <summary>You can see the whole issue here</summary>
 
-## Step 1: Start the Metro Server
+```
+Showing All Errors Only
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+Build target React-Fabric of project Pods with configuration Debug
+warning: Run script build phase 'Create Symlinks to Header Folders' will be run during every build because it does not specify any outputs. To address this warning, either add output dependencies to the script phase, or configure it to run in every build by unchecking "Based on dependency analysis" in the script phase. (in target 'React-Fabric' from project 'Pods')
 
-To start Metro, run the following command from the _root_ of your React Native project:
 
-```bash
-# using npm
-npm start
+Ld /Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-Fabric/React_Fabric.framework/React_Fabric normal (in target 'React-Fabric' from project 'Pods')
+    cd /Users/burakguner/kod/testDynamicLatest/ios/Pods
+    /Applications/Xcode-14.2.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -target arm64-apple-ios12.4-simulator -dynamiclib -isysroot /Applications/Xcode-14.2.0.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator16.2.sdk -L/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Intermediates.noindex/EagerLinkingTBDs -L/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-Fabric -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Intermediates.noindex/EagerLinkingTBDs -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-Fabric -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/DoubleConversion -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/RCT-Folly -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/RCTTypeSafety -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-Core -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-cxxreact -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-debug -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-graphics -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-hermes -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-jsi -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-jsiexecutor -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-jsinspector -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-logger -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-perflogger -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-runtimescheduler -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-utils -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/ReactCommon -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/SocketRocket -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/Yoga -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/fmt -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/glog -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/libevent -F/Users/burakguner/kod/testDynamicLatest/ios/Pods/hermes-engine/destroot/Library/Frameworks/universal -F/Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/XCFrameworkIntermediates/hermes-engine/Pre-built -filelist /Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/React-Fabric.build/Objects-normal/arm64/React_Fabric.LinkFileList -install_name @rpath/React_Fabric.framework/React_Fabric -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -rpath -Xlinker @loader_path/Frameworks -dead_strip -Xlinker -object_path_lto -Xlinker /Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/React-Fabric.build/Objects-normal/arm64/React_Fabric_lto.o -Xlinker -export_dynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -stdlib\=libc++ -fobjc-arc -fobjc-link-runtime -framework DoubleConversion -framework JavaScriptCore -framework RCTTypeSafety -framework React -framework ReactCommon -framework React_debug -framework React_graphics -framework React_runtimescheduler -framework React_utils -framework folly -framework glog -framework hermes -framework jsi -framework jsireact -framework logger -framework yoga -framework Foundation -Xlinker -no_adhoc_codesign -compatibility_version 1 -current_version 1 -Xlinker -dependency_info -Xlinker /Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/React-Fabric.build/Objects-normal/arm64/React_Fabric_dependency_info.dat -o /Users/burakguner/Library/Developer/Xcode/DerivedData/testDynamicLatest-ccdudyxjtfwmbvgujomkmpjyasud/Build/Products/Debug-iphonesimulator/React-Fabric/React_Fabric.framework/React_Fabric
 
-# OR using Yarn
-yarn start
+Undefined symbols for architecture arm64:
+  "facebook::react::ImageManager::requestImage(facebook::react::ImageSource const&, int) const", referenced from:
+      facebook::react::ImageShadowNode::updateStateIfNeeded() in ImageShadowNode.o
+ld: symbol(s) not found for architecture arm64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+Undefined symbol: facebook::react::ImageManager::requestImage(facebook::react::ImageSource const&, int) const
+
+
+
+Build failed    13.07.2023 12:40    45.1 seconds
+```
+</details>
+
+## What is changed?
+
+I've added these lines to the [Podfile](./ios/Podfile):
+``` ruby
+ENV["RCT_NEW_ARCH_ENABLED"]="1"
+ENV['NO_FLIPPER'] = '1'
+ENV['USE_FRAMEWORKS'] = 'dynamic'
 ```
 
-## Step 2: Start your Application
+## How to reproduce
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+1. Install the npm dependencies.
+2. Install the pods.
+3. Build the app either via `XCode` or using `react-native run-ios`
